@@ -1,0 +1,205 @@
+/* =========================================================
+   Pra Yasmin — estilos
+   Paleta e fontes centralizadas nas variáveis abaixo.
+   ========================================================= */
+:root {
+  --night: #0b1a33;
+  --deep: #12305c;
+  --blue: #3d7bd9;
+  --sky: #8fbaf3;
+  --mist: #dbe9fb;
+  --paper: #f7fbff;
+  --ink: #1b2d4a;
+  --white: #ffffff;
+  --glow: 0 0 40px rgba(143, 186, 243, .45);
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "Karla", system-ui, sans-serif;
+  --ease: cubic-bezier(.22, .9, .3, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: var(--sans);
+  color: var(--mist);
+  background: radial-gradient(ellipse at top, var(--deep), var(--night) 70%);
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+
+/* ---------- Céu ---------- */
+#sky { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.star {
+  position: absolute; border-radius: 50%; background: var(--white);
+  animation: twinkle var(--d, 3s) ease-in-out infinite alternate;
+}
+@keyframes twinkle { from { opacity: .15; } to { opacity: .9; } }
+.shooting {
+  position: absolute; width: 120px; height: 1px;
+  background: linear-gradient(90deg, var(--white), transparent);
+  transform: rotate(-25deg); animation: shoot 1.4s ease-out forwards;
+}
+@keyframes shoot { to { transform: translate(-400px, 200px) rotate(-25deg); opacity: 0; } }
+
+/* ---------- Progresso ---------- */
+.progress {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+  display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+}
+.progress__track { flex: 1; height: 3px; background: rgba(219, 233, 251, .15); border-radius: 3px; overflow: hidden; }
+.progress__fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--blue), var(--sky)); transition: width .8s var(--ease); box-shadow: var(--glow); }
+.progress__label { font-size: 12px; letter-spacing: .08em; opacity: .7; min-width: 92px; text-align: right; }
+
+/* ---------- Etapas ---------- */
+main { position: relative; z-index: 1; min-height: 100vh; display: grid; place-items: center; padding: 80px 20px 40px; }
+.step {
+  grid-area: 1 / 1; width: 100%; max-width: 560px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  opacity: 0; transform: translateY(24px); pointer-events: none; visibility: hidden;
+  transition: opacity .8s var(--ease), transform .8s var(--ease), visibility .8s;
+}
+.step.active { opacity: 1; transform: none; pointer-events: auto; visibility: visible; }
+
+.eyebrow { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--sky); }
+.title { font-family: var(--serif); font-weight: 400; font-style: italic; font-size: clamp(2.2rem, 7vw, 3.4rem); line-height: 1.1; color: var(--white); }
+.lead { font-weight: 300; font-size: 1.05rem; opacity: .85; max-width: 420px; line-height: 1.6; }
+.hint { font-size: 13px; opacity: .55; animation: breathe 2.4s ease-in-out infinite; }
+@keyframes breathe { 50% { opacity: .2; } }
+.counter { font-size: 12px; opacity: .5; letter-spacing: .1em; }
+
+/* ---------- Botões ---------- */
+.btn {
+  margin-top: 8px; padding: 13px 30px; border-radius: 999px;
+  background: linear-gradient(135deg, var(--blue), var(--sky)); color: var(--night);
+  font-weight: 500; letter-spacing: .04em; box-shadow: var(--glow);
+  transition: transform .3s var(--ease), box-shadow .3s;
+  animation: rise .6s var(--ease);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 0 60px rgba(143, 186, 243, .6); }
+.btn--ghost { background: transparent; color: var(--mist); border: 1px solid rgba(219, 233, 251, .3); box-shadow: none; }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+
+.chip, .option {
+  padding: 12px 20px; border-radius: 999px; border: 1px solid rgba(143, 186, 243, .35);
+  background: rgba(18, 48, 92, .5); backdrop-filter: blur(6px);
+  transition: all .3s var(--ease);
+}
+.chip:hover, .option:hover { border-color: var(--sky); background: rgba(61, 123, 217, .25); }
+.chip.selected, .option.selected { background: var(--sky); color: var(--night); border-color: var(--sky); }
+.moods { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.options { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 380px; }
+.option:disabled { cursor: default; }
+.option:disabled:not(.selected) { opacity: .4; }
+
+.reply {
+  font-family: var(--serif); font-size: 1.3rem; font-style: italic; line-height: 1.5;
+  color: var(--white); max-width: 440px; padding: 18px 22px;
+  border-left: 2px solid var(--sky); text-align: left; animation: rise .7s var(--ease);
+}
+
+/* ---------- Envelope ---------- */
+.envelope { position: relative; width: 260px; height: 170px; margin-top: 20px; perspective: 800px; animation: float 4s ease-in-out infinite; }
+@keyframes float { 50% { transform: translateY(-8px); } }
+.envelope__back, .envelope__front { position: absolute; inset: 0; border-radius: 6px; }
+.envelope__back { background: var(--blue); }
+.envelope__front {
+  background: linear-gradient(to top right, var(--sky) 50%, transparent 50.5%) left / 50.5% 100% no-repeat,
+              linear-gradient(to top left, #a8c9f6 50%, transparent 50.5%) right / 50.5% 100% no-repeat;
+  z-index: 3;
+}
+.envelope__flap {
+  position: absolute; top: 0; left: 0; right: 0; height: 100%; z-index: 4;
+  background: linear-gradient(to bottom, #6fa2ea, var(--blue));
+  clip-path: polygon(0 0, 100% 0, 50% 58%); transform-origin: top;
+  transition: transform .7s var(--ease), z-index 0s .35s;
+}
+.envelope__seal {
+  position: absolute; z-index: 5; left: 50%; top: 52%; transform: translate(-50%, -50%);
+  width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--paper); color: var(--blue); font-size: 18px; box-shadow: 0 2px 10px rgba(0, 0, 0, .25);
+  transition: opacity .3s, transform .4s;
+}
+.envelope__letter {
+  position: absolute; left: 12px; right: 12px; top: 10px; bottom: 10px; z-index: 2;
+  background: var(--paper); border-radius: 4px; display: grid; place-items: center;
+  transition: transform .8s var(--ease) .4s;
+}
+.envelope__text { font-family: var(--serif); font-style: italic; font-size: 1.4rem; color: var(--ink); }
+.envelope.open { animation: none; }
+.envelope.open .envelope__flap { transform: rotateX(180deg); z-index: 1; }
+.envelope.open .envelope__seal { opacity: 0; transform: translate(-50%, -50%) scale(.4); }
+.envelope.open .envelope__letter { transform: translateY(-90px); }
+
+/* ---------- Cartinhas ---------- */
+.letters { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; width: 100%; }
+.letter { position: relative; height: 150px; perspective: 900px; }
+.letter__inner { position: absolute; inset: 0; transition: transform .8s var(--ease); transform-style: preserve-3d; }
+.letter.open .letter__inner { transform: rotateY(180deg); }
+.letter__face {
+  position: absolute; inset: 0; border-radius: 12px; backface-visibility: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px; gap: 6px;
+}
+.letter__front { background: linear-gradient(160deg, var(--deep), #1d4a8a); border: 1px solid rgba(143, 186, 243, .3); }
+.letter__front .icon { font-size: 26px; }
+.letter__front small { font-size: 12px; letter-spacing: .15em; text-transform: uppercase; opacity: .75; }
+.letter__back { background: var(--paper); color: var(--ink); transform: rotateY(180deg); font-family: var(--serif); font-size: 1.05rem; line-height: 1.35; font-style: italic; }
+.letter.locked { opacity: .45; }
+.letter.locked .letter__front small::after { content: " · trancada"; }
+
+/* ---------- Campo de estrelas ---------- */
+.field {
+  position: relative; width: 100%; height: 340px; border-radius: 16px; overflow: hidden;
+  background: linear-gradient(to bottom, rgba(11, 26, 51, .6), rgba(18, 48, 92, .6));
+  border: 1px solid rgba(143, 186, 243, .2); touch-action: manipulation;
+}
+.field__count { position: absolute; top: 12px; right: 16px; font-size: 13px; opacity: .7; z-index: 2; }
+.falling {
+  position: absolute; top: -40px; font-size: 26px; color: var(--sky);
+  text-shadow: 0 0 12px var(--sky); padding: 10px; line-height: 1;
+  cursor: pointer; user-select: none; -webkit-user-select: none; will-change: transform; z-index: 1;
+}
+@keyframes fall { to { transform: translateY(400px) rotate(200deg); } }
+.falling.caught { animation: pop .4s ease-out forwards; }
+@keyframes pop { to { scale: 2.4; opacity: 0; } }
+.falling.caught { transition: opacity .4s; opacity: 0; }
+.constellation { position: absolute; inset: 0; width: 100%; height: 100%; }
+.constellation path { fill: none; stroke: var(--sky); stroke-width: 1; stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: draw 3s ease forwards; filter: drop-shadow(0 0 4px var(--sky)); }
+.constellation circle { fill: var(--white); }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.constellation text { fill: var(--mist); font-family: var(--serif); font-style: italic; font-size: 18px; opacity: 0; animation: appear .8s ease 2.6s forwards; }
+@keyframes appear { to { opacity: 1; } }
+
+/* ---------- Segurar ---------- */
+.hold { position: relative; width: 150px; height: 150px; margin-top: 10px; user-select: none; -webkit-user-select: none; touch-action: none; }
+.hold__ring { position: absolute; inset: 0; transform: rotate(-90deg); }
+.hold__ring circle { fill: none; stroke: rgba(143, 186, 243, .2); stroke-width: 3; }
+.hold__ring .hold__progress { stroke: var(--sky); stroke-dasharray: 289; stroke-dashoffset: 289; stroke-linecap: round; filter: drop-shadow(0 0 6px var(--sky)); }
+.hold__heart { font-size: 60px; color: var(--sky); display: inline-block; transition: transform .3s; text-shadow: var(--glow); }
+.hold.pressing .hold__heart { animation: beat .7s ease-in-out infinite; }
+@keyframes beat { 30% { transform: scale(1.18); } 60% { transform: scale(1); } }
+
+/* ---------- Final ---------- */
+.final-title { font-size: clamp(2.6rem, 9vw, 4.2rem); text-shadow: var(--glow); }
+.final-letter {
+  background: var(--paper); color: var(--ink); border-radius: 6px; padding: 30px 28px; text-align: left;
+  font-family: var(--serif); font-size: 1.2rem; line-height: 1.7; box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+  min-height: 200px; width: 100%;
+}
+.final-letter .sign { display: block; margin-top: 16px; text-align: right; font-style: italic; }
+.cursor { display: inline-block; width: 1px; height: 1em; background: var(--ink); vertical-align: middle; animation: breathe 1s infinite; }
+.final-actions { display: flex; gap: 12px; }
+
+/* Corações flutuantes (explosão) */
+.float-heart { position: fixed; z-index: 20; pointer-events: none; color: var(--sky); animation: drift 2.4s ease-out forwards; }
+@keyframes drift { to { transform: translate(var(--x), -260px) rotate(var(--r)); opacity: 0; } }
+
+@media (max-width: 480px) {
+  .letters { gap: 10px; }
+  .letter { height: 160px; }
+  .letter__back { font-size: .95rem; }
+  .field { height: 300px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

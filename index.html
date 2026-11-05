@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pra você, Yasmin</title>
+  <meta name="description" content="Um pequeno presente feito à mão." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&family=Karla:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Céu estrelado de fundo (gerado pelo script) -->
+  <div id="sky" aria-hidden="true"></div>
+
+  <!-- Barra de progresso da jornada -->
+  <header class="progress" aria-label="Progresso">
+    <div class="progress__track"><div class="progress__fill" id="progressFill"></div></div>
+    <span class="progress__label" id="progressLabel">0% concluído</span>
+  </header>
+
+  <main>
+    <!-- ETAPA 0: Envelope -->
+    <section class="step active" id="step-envelope">
+      <p class="eyebrow">fiz isso aqui pra você</p>
+      <h1 class="title">Oi, Yasmin.</h1>
+      <p class="lead">Não é nada demais, só queria fazer algo diferente pra você. Abre aí.</p>
+      <button class="envelope" id="envelope" aria-label="Abrir envelope">
+        <span class="envelope__back"></span>
+        <span class="envelope__letter">
+          <span class="envelope__text">abre aí</span>
+        </span>
+        <span class="envelope__front"></span>
+        <span class="envelope__flap"></span>
+        <span class="envelope__seal">♡</span>
+      </button>
+      <p class="hint">clica no envelope</p>
+    </section>
+
+    <!-- ETAPA 1: Como você está? -->
+    <section class="step" id="step-mood">
+      <p class="eyebrow">rapidinho</p>
+      <h2 class="title">Como você tá hoje?</h2>
+      <p class="lead">Escolhe a que mais combina com hoje.</p>
+      <div class="moods">
+        <button class="chip" data-mood="feliz">☀️ feliz</button>
+        <button class="chip" data-mood="cansada">🌙 cansada</button>
+        <button class="chip" data-mood="saudade">💭 com saudade</button>
+        <button class="chip" data-mood="ansiosa">🌊 meio ansiosa</button>
+        <button class="chip" data-mood="sei">🤍 nem sei</button>
+      </div>
+      <div class="reply" id="moodReply" hidden></div>
+      <button class="btn" id="moodNext" hidden>continuar</button>
+    </section>
+
+    <!-- ETAPA 2: Quiz -->
+    <section class="step" id="step-quiz">
+      <p class="eyebrow">vamos ver se você me conhece</p>
+      <h2 class="title" id="quizQuestion"></h2>
+      <div class="options" id="quizOptions"></div>
+      <div class="reply" id="quizReply" hidden></div>
+      <p class="counter" id="quizCounter"></p>
+      <button class="btn" id="quizNext" hidden>próxima</button>
+    </section>
+
+    <!-- ETAPA 3: Cartinhas secretas -->
+    <section class="step" id="step-letters">
+      <p class="eyebrow">umas coisas que queria te falar</p>
+      <h2 class="title">Escolhe e abre</h2>
+      <p class="lead">Deixei umas mensagens aqui. Pode abrir todas.</p>
+      <div class="letters" id="letters"></div>
+      <button class="btn" id="lettersNext" hidden>continuar</button>
+    </section>
+
+    <!-- ETAPA 4: Desafio das estrelas -->
+    <section class="step" id="step-stars">
+      <p class="eyebrow">agora é sua vez</p>
+      <h2 class="title">Consegue pegar 7 estrelas?</h2>
+      <p class="lead">Elas vão aparecer na tela. É só clicar antes que sumam.</p>
+      <div class="field" id="starField">
+        <span class="field__count" id="starCount">0 / 7</span>
+      </div>
+      <button class="btn" id="starsNext" hidden>olha só</button>
+    </section>
+
+    <!-- ETAPA 5: Segure o coração -->
+    <section class="step" id="step-hold">
+      <p class="eyebrow">última parte</p>
+      <h2 class="title">Só mais uma coisinha</h2>
+      <p class="lead">Segura o botão por alguns segundos.</p>
+      <button class="hold" id="holdHeart" aria-label="Segure o coração">
+        <svg viewBox="0 0 100 100" class="hold__ring"><circle cx="50" cy="50" r="46" /><circle cx="50" cy="50" r="46" class="hold__progress" id="holdRing" /></svg>
+        <span class="hold__heart">♥</span>
+      </button>
+      <p class="hint" id="holdHint">segura aqui</p>
+    </section>
+
+    <!-- ETAPA 6: Final -->
+    <section class="step" id="step-final">
+      <p class="eyebrow">era isso</p>
+      <h2 class="title final-title">Queria te dizer uma coisa.</h2>
+      <div class="final-letter" id="finalLetter"></div>
+      <div class="final-actions">
+        <button class="btn btn--ghost" id="restart">ver de novo</button>
+        <button class="btn" id="burst">♡</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

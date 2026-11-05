@@ -38,7 +38,7 @@ const CONTENT = {
     "Yasmin,",
     "eu não sou muito bom em falar essas coisas, então resolvi fazer isso aqui em vez de tentar explicar tudo por mensagem.",
     "Gosto de ter você por perto, das nossas conversas, das besteiras e até dos momentos mais aleatórios. Você é importante pra mim, de verdade. E eu queria fazer alguma coisa que mostrasse isso, mesmo que fosse desse jeito meio diferente.",
-    "Enfim, era isso. Gosto muito de você."
+    "Enfim, era isso. Eu amo você."
   ],
   sign: "— feito por mim, pra você."
 };
